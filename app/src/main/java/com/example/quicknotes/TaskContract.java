@@ -10,5 +10,6 @@ public final class TaskContract {
         public static final String COLUMN_TEXT = "text";
         public static final String COLUMN_DATETIME = "datetime";
         public static final String COLUMN_TIMESTAMP = "timestamp";
+        public static final String COLUMN_PHOTO_PATH = "photo_path";
     }
 }

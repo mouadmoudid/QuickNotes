@@ -6,13 +6,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TaskDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "tasks.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TaskContract.TaskEntry.TABLE_NAME + " (" +
                     TaskContract.TaskEntry._ID + " INTEGER PRIMARY KEY," +
                     TaskContract.TaskEntry.COLUMN_TEXT + " TEXT," +
                     TaskContract.TaskEntry.COLUMN_DATETIME + " TEXT," +
+                    TaskContract.TaskEntry.COLUMN_PHOTO_PATH + " TEXT," +
                     TaskContract.TaskEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
     public TaskDbHelper(Context context) {
@@ -26,7 +27,10 @@ public class TaskDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TaskContract.TaskEntry.TABLE_NAME);
-        onCreate(db);
+        if (oldVersion < 2) {
+            // Ajoutez la nouvelle colonne pour les versions antérieures
+            db.execSQL("ALTER TABLE " + TaskContract.TaskEntry.TABLE_NAME +
+                    " ADD COLUMN " + TaskContract.TaskEntry.COLUMN_PHOTO_PATH + " TEXT");
+        }
     }
 }

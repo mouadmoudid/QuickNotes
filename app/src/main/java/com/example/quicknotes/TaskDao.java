@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,12 +16,36 @@ public class TaskDao {
         dbHelper = new TaskDbHelper(context);
     }
 
-    public long insertTask(String text, String datetime) {
+    public long insertTask(String text, String datetime, String photoPath) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(TaskContract.TaskEntry.COLUMN_TEXT, text);
+            values.put(TaskContract.TaskEntry.COLUMN_DATETIME, datetime);
+
+            if (photoPath != null) {
+                values.put(TaskContract.TaskEntry.COLUMN_PHOTO_PATH, photoPath);
+            }
+
+            return db.insert(TaskContract.TaskEntry.TABLE_NAME, null, values);
+        } catch (Exception e) {
+            Log.e("DB_ERROR", "Insert failed", e);
+            return -1;
+        } finally {
+            db.close();
+        }
+    }
+
+    public int updateTaskPhoto(long id, String photoPath) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(TaskContract.TaskEntry.COLUMN_TEXT, text);
-        values.put(TaskContract.TaskEntry.COLUMN_DATETIME, datetime);
-        return db.insert(TaskContract.TaskEntry.TABLE_NAME, null, values);
+        values.put(TaskContract.TaskEntry.COLUMN_PHOTO_PATH, photoPath);
+        return db.update(
+                TaskContract.TaskEntry.TABLE_NAME,
+                values,
+                TaskContract.TaskEntry._ID + " = ?",
+                new String[]{String.valueOf(id)}
+        );
     }
 
     public ArrayList<HashMap<String, String>> getAllTasks() {

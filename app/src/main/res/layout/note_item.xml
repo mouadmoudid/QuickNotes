@@ -4,32 +4,91 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="12dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="true">
 
+    <!-- Première ligne : Contenu principal + Actions -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
+        <!-- Miniature photo -->
+        <ImageView
+            android:id="@+id/imageViewPhoto"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:visibility="gone"/>
+
+        <!-- Texte de la note -->
         <TextView
             android:id="@+id/textViewNote"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18sp" />
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:ellipsize="end"/>
 
-        <Button
-            android:id="@+id/buttonDelete"
+        <!-- Boutons d'action -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete" />
+            android:orientation="horizontal">
+
+            <!-- Bouton Photo (icône au lieu de texte) -->
+            <ImageButton
+                android:id="@+id/buttonPhoto"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@android:drawable/ic_menu_camera"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Prendre une photo"
+                android:layout_marginEnd="8dp"/>
+
+            <!-- Bouton Delete (icône au lieu de texte) -->
+            <ImageButton
+                android:id="@+id/buttonDelete"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@android:drawable/ic_menu_delete"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Supprimer la note"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewDate"
+    <!-- Deuxième ligne : Date + État photo -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12sp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp">
+
+        <!-- Date -->
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"/>
+
+        <!-- Indicateur de photo -->
+        <TextView
+            android:id="@+id/textViewPhotoIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:textSize="12sp"
+            android:textColor="#FF4081"
+            android:text="📷 Photo attachée"
+            android:visibility="gone"/>
+    </LinearLayout>
 
 </LinearLayout>
