@@ -2,12 +2,4 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary_color">#6200EE</color>
-    <color name="light_gray_background">#F5F5F5</color>
-    <color name="list_divider">#E0E0E0</color>
-    <color name="primary_light">#E6DDFF</color>
-    <color name="error_color">#B00020</color>
-    <color name="error_light">#FFCDD2</color>
-    <color name="photo_placeholder">#EEEEEE</color>
-    <color name="card_stroke">#E0E0E0</color>
 </resources>

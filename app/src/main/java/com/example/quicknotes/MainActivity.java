@@ -155,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
 
                     String datetime = dateTimeFormat.format(selectedDateTime.getTime());
                     long id = taskDao.insertTask(noteText, datetime, null);
+                    checkNotificationPermission();
+                    scheduleNotification(noteText,selectedDateTime.getTimeInMillis());
 
                     HashMap<String, String> task = new HashMap<>();
                     task.put("id", String.valueOf(id));

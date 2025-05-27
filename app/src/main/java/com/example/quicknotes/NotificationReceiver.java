@@ -18,28 +18,25 @@ public class NotificationReceiver extends BroadcastReceiver {
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     @Override
     public void onReceive(Context context, Intent intent) {
+        String noteText = intent.getStringExtra("noteText");
+        if (noteText == null || noteText.isEmpty()) return;
+
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Create notification (no need to check permission here - system can always post)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notes_channel")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(context.getString(R.string.notification_title))
+                .setContentText(noteText)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        // Post notification
         try {
-            String noteText = intent.getStringExtra("noteText");
-            if (noteText == null || noteText.isEmpty()) return;
-
-            createNotificationChannel(context);
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notes_channel")
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle(context.getString(R.string.notification_title))
-                    .setContentText(noteText)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setAutoCancel(true);
-
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
-                    == PackageManager.PERMISSION_GRANTED) {
-                notificationManager.notify(noteText.hashCode(), builder.build());
-            }
-
-        } catch (Exception e) {
-            Log.e("NotificationReceiver", "Error showing notification", e);
+            notificationManager.notify((int) System.currentTimeMillis(), builder.build());
+        } catch (SecurityException e) {
+            Log.e("Notification", "Failed to show notification", e);
         }
     }
 

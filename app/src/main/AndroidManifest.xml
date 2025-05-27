@@ -5,8 +5,9 @@
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -37,6 +38,7 @@
         <receiver
             android:name="com.example.quicknotes.NotificationReceiver"
             android:exported="false"
+            android:enabled="true"
             tools:ignore="MissingClass">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" /> <!-- Optionnel -->
