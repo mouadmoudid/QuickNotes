@@ -4,33 +4,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/white">
 
-    <!-- Input for new note -->
+    <!-- Titre de l'application -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quick Notes"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Input pour nouvelle note -->
     <EditText
         android:id="@+id/editTextNote"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type a note..." />
+        android:hint="Tapez votre note ici..."
+        android:background="@android:drawable/edit_text"
+        android:padding="12dp"
+        android:textSize="16sp"/>
 
-    <!-- Date Selection -->
+    <!-- Sélection de date -->
     <Button
         android:id="@+id/buttonDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Date" />
+        android:text="Sélectionner date et heure"
+        android:drawableLeft="@android:drawable/ic_menu_my_calendar"
+        android:drawablePadding="8dp"
+        android:layout_marginTop="8dp"
+        android:textAllCaps="false"/>
 
-    <!-- Add Note Button -->
+    <!-- Bouton Ajouter -->
     <Button
         android:id="@+id/buttonAdd"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Note" />
+        android:text="Ajouter Note"
+        android:background="@android:drawable/btn_default"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#3F51B5"
+        android:layout_marginTop="8dp"
+        android:textAllCaps="false"/>
 
-    <!-- List of Notes -->
+    <!-- Séparateur -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginVertical="16dp"/>
+
+    <!-- Liste des notes -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vos notes:"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="8dp"/>
+
     <ListView
         android:id="@+id/listViewNotes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"/>
 
 </LinearLayout>

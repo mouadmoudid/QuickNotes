@@ -110,6 +110,19 @@ public class MainActivity extends AppCompatActivity {
                     checkCameraPermission();
                 });
 
+                ImageButton buttonDetails = view.findViewById(R.id.buttonDetails);
+                buttonDetails.setOnClickListener(v -> {
+                    HashMap<String, String> selectedTask = notesList.get(position);
+
+                    Intent detailIntent = new Intent(MainActivity.this, TaskDetailActivity.class);
+                    detailIntent.putExtra("task_id", selectedTask.get("id"));
+                    detailIntent.putExtra("task_text", selectedTask.get("text"));
+                    detailIntent.putExtra("task_date", selectedTask.get("datetime"));
+                    detailIntent.putExtra("photo_path", selectedTask.get("photo_path"));
+
+                    startActivity(detailIntent);
+                });
+
 
                 buttonDelete.setOnClickListener(v -> {
                     // Supprimer de la base de données
@@ -130,17 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
         listViewNotes.setAdapter(adapter);
 
-        listViewNotes.setOnItemClickListener((parent, view, position, id) -> {
-            HashMap<String, String> selectedTask = notesList.get(position);
-
-            Intent detailIntent = new Intent(MainActivity.this, TaskDetailActivity.class);
-            detailIntent.putExtra("task_id", selectedTask.get("id"));
-            detailIntent.putExtra("task_text", selectedTask.get("text"));
-            detailIntent.putExtra("task_date", selectedTask.get("datetime"));
-            detailIntent.putExtra("photo_path", selectedTask.get("photo_path"));
-
-            startActivity(detailIntent);
-        });
 
         // Sélection de date et heure
         buttonDate.setOnClickListener(v -> showDateTimePicker());
